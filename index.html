@@ -662,9 +662,12 @@
 
   /* Intro video (home page) */
   .intro-video { padding: 72px 0 24px; }
-  .video-frame { max-width: 960px; margin: 0 auto; border-radius: 14px; overflow: hidden; border: 1px solid var(--border, rgba(255,255,255,0.08)); box-shadow: 0 30px 80px rgba(0,0,0,0.45); background: #000; aspect-ratio: 16 / 9; }
+  .video-frame { max-width: 960px; margin: 0 auto; border-radius: 14px; overflow: hidden; border: 1px solid var(--border, rgba(255,255,255,0.08)); box-shadow: 0 30px 80px rgba(0,0,0,0.45); background: #000; aspect-ratio: 16 / 9; position: relative; }
   .video-frame video { display: block; width: 100%; height: 100%; object-fit: contain; background: #000; }
   @media (max-width: 640px) { .intro-video { padding: 48px 0 8px; } .video-frame { border-radius: 10px; } }
+  .sound-on { position: absolute; top: 14px; right: 14px; border: 0; cursor: pointer; border-radius: 999px; padding: 9px 16px;
+    font: 600 14px Inter, sans-serif; background: var(--amber, #FFB23E); color: #1A1206; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
+  .sound-on[hidden] { display: none; }
 
   /* ---------- Wyzestock additions ---------- */
   .flow-svg { width: 100%; height: auto; display: block; }
@@ -712,7 +715,7 @@
       </p>
       <div class="hero-ctas">
         <a href="#contact" class="btn btn-primary">Get in touch</a>
-        <a href="#video" class="btn btn-ghost" data-play-video>&#9654;&nbsp; See how it works</a>
+        <a href="#video" class="btn btn-ghost" data-play-video>&#9654;&nbsp; Watch the 80-second video</a>
       </div>
       <div class="status-strip">
         <span><span class="sdot"></span> Synced from your ERP twice a day</span>
@@ -739,21 +742,43 @@
         <p>Too much or too little stock both cost money. See how Wyzestock frees up capital and keeps customers served.</p>
       </div>
       <div class="video-frame">
-        <video controls preload="none" playsinline poster="/images/video-poster.jpg" aria-label="Wyzestock introduction video">
+        <video controls muted playsinline preload="metadata" poster="/images/video-poster.jpg" aria-label="Wyzestock introduction video">
           <source src="/videos/wyzestock-intro.mp4" type="video/mp4">
           Your browser cannot play this video. <a href="/videos/wyzestock-intro.mp4">Download it here</a>.
         </video>
+        <button type="button" class="sound-on" hidden>&#128266;&nbsp; Turn on sound</button>
       </div>
       <script>
-        document.querySelectorAll('[data-play-video]').forEach(function (btn) {
-          btn.addEventListener('click', function (e) {
-            var v = document.querySelector('#video video');
-            if (!v) return;
-            e.preventDefault();
-            document.getElementById('video').scrollIntoView({ behavior: 'smooth', block: 'center' });
-            v.play().catch(function () {});
+        (function () {
+          var v = document.querySelector('#video video');
+          var sound = document.querySelector('#video .sound-on');
+          if (!v) return;
+          function withSound() {
+            v.muted = false; v.currentTime = 0; v.play().catch(function () {});
+            sound.hidden = true;
+          }
+          // starts silently when it scrolls into view (browsers only allow muted autoplay), pauses when out of view
+          var started = false;
+          if ('IntersectionObserver' in window) {
+            new IntersectionObserver(function (entries) {
+              entries.forEach(function (en) {
+                if (en.isIntersecting && en.intersectionRatio >= 0.5) {
+                  if (v.paused && (!started || v.muted)) { v.play().catch(function () {}); }
+                  if (!started) { started = true; if (v.muted) sound.hidden = false; }
+                } else if (!v.paused && v.muted) { v.pause(); }
+              });
+            }, { threshold: [0, 0.5] }).observe(v);
+          }
+          sound.addEventListener('click', withSound);
+          v.addEventListener('volumechange', function () { if (!v.muted) sound.hidden = true; });
+          document.querySelectorAll('[data-play-video]').forEach(function (btn) {
+            btn.addEventListener('click', function (e) {
+              e.preventDefault();
+              document.getElementById('video').scrollIntoView({ behavior: 'smooth', block: 'center' });
+              withSound();
+            });
           });
-        });
+        })();
       </script>
     </div>
   </section>
