@@ -100,9 +100,9 @@ def head(title, desc, path, schema=None):
 
 def nav(home=False):
     p = '' if home else '/'
-    links = [(f'{p}#hub', 'How it works'), ('/stock-optimisation/', 'Stock optimisation'), ('/replenishment/', 'Replenishment'),
+    links = [('/stock-optimisation/', 'Stock optimisation'), ('/replenishment/', 'Replenishment'),
              ('/distribution/', 'Distribution'), ('/demand-management/', 'Demand management'), ('/ai-insights/', 'AI Insights'),
-             ('/partners/', 'Partners'), (f'{p}#contact', 'Get in touch')]
+             ('/partners/', 'Partners')]
     brand_href = '#top' if home else '/'
     items = '\n'.join(f'      <a href="{h}">{t}</a>' for h, t in links)
     return f'''
