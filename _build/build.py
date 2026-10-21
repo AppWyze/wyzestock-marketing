@@ -129,7 +129,7 @@ def footer():
     return f'''
 <footer>
   <div class="wrap footer-inner">
-    <div>&copy; 2026 Wyzestock, a product of CL Wyeth t/a Wyzelink.</div>
+    <div>&copy; 2026 Wyzestock.</div>
     <div class="footer-links">{links}
       <a href="/partners/">For ERP partners</a>
       <a href="{APP}">Sign in</a>
@@ -393,7 +393,7 @@ def home():
                         'Seasonal forecasting with manual overrides', 'Purchase suggestions rounded to minimum order and pack size',
                         'Transfers between locations', 'Demand management report emailed every morning', 'Bills of material and component planning',
                         'AI explanations checked against your figures', 'Automatic ERP sync twice a day', 'PDF and Excel export'],
-        'url': SITE, 'publisher': {'@type': 'Organization', 'name': 'CL Wyeth t/a Wyzelink', 'url': SITE},
+        'url': SITE, 'publisher': {'@type': 'Organization', 'name': 'Wyzestock', 'url': SITE},
     }
     video = {
         '@type': 'VideoObject', 'name': 'Wyzestock in 80 seconds',
