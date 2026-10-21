@@ -13,7 +13,7 @@ import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 B = ROOT / '_build'
-SITE = 'https://www.wyzestock.co.za'
+SITE = 'https://wyzestock.co.za'  # primary domain on Netlify since 2026-10-21; www redirects here
 APP = 'https://app.wyzestock.co.za'
 EMAIL = 'support@wyzestock.co.za'
 WA_NUMBER = '27621847381'
@@ -268,7 +268,7 @@ def contact_section(heading='Let\'s see if Wyzestock fits your business'):
         </form>
 
         <div class="contact-alt">
-          Prefer email? Reach us directly at <a href="mailto:{EMAIL}">{EMAIL}</a><br>For ERP or accounting partners, <a href="/partners/">see how we work with you</a>.
+          Prefer email? Reach us directly at <a href="mailto:{EMAIL}">{EMAIL}</a><br>For ERP or accounting partners, <a href="/partners/">see how we work with you</a>. <a href="/Wyzestock-One-Pager.pdf">Download the one-page overview (PDF)</a>.
         </div>
       </div>
     </div>

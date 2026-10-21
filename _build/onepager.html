@@ -1,0 +1,144 @@
+<!doctype html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<title>Wyzestock one-page overview</title>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800&family=Space+Grotesk:wght@500;600;700&display=swap" rel="stylesheet">
+<style>
+  @page { size: A4; margin: 0; }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  :root { --navy: #0B1820; --navy-2: #13242E; --amber: #FFB23E; --text: #1B2A33; --muted: #5B6B75; --line: #E3E8EB; }
+  html, body { width: 210mm; height: 297mm; }
+  body { font-family: Inter, sans-serif; color: var(--text); background: #fff; position: relative; overflow: hidden;
+         -webkit-print-color-adjust: exact; print-color-adjust: exact; }
+  .top { background: radial-gradient(ellipse at 30% 0%, #2a2410 0%, var(--navy) 55%); color: #EDF1F3; padding: 8mm 12mm 0; height: 78mm; }
+  .bar { display: flex; justify-content: space-between; align-items: center; }
+  .brand { display: flex; align-items: center; gap: 8px; font-family: 'Space Grotesk', sans-serif; font-weight: 700; font-size: 21px; }
+  .brand img { width: 26px; height: 26px; border-radius: 6px; }
+  .brand .a { color: var(--amber); }
+  .pill { border: 1.5px solid var(--amber); color: var(--amber); border-radius: 999px; padding: 5px 13px; font-size: 11px; font-weight: 600; }
+  h1 { font-family: 'Space Grotesk', sans-serif; font-size: 31px; line-height: 1.12; margin-top: 5.5mm; font-weight: 700; }
+  h1 .a { color: var(--amber); }
+  .lead { font-size: 11.2px; line-height: 1.6; color: #B7C5CD; margin-top: 3mm; max-width: 178mm; }
+  .shots { display: grid; grid-template-columns: repeat(3, 1fr); gap: 4mm; padding: 0 12mm; margin-top: -19mm; }
+  .shot { background: #fff; border-radius: 6px; box-shadow: 0 2px 10px rgba(0,0,0,.18); overflow: hidden; border: 1px solid var(--line); }
+  .shot .img { height: 37mm; background-size: cover; background-position: left top; }
+  .shot p { font-size: 9.3px; line-height: 1.4; padding: 1.8mm 3mm 2.2mm; color: var(--text); }
+  .shot b { font-weight: 700; }
+  .band { margin: 5mm 12mm 0; background: var(--navy); border-radius: 8px; color: #EDF1F3; display: flex; gap: 6mm; align-items: center; padding: 4mm 6mm; }
+  .disc { flex: none; width: 25mm; height: 25mm; border-radius: 50%; background: var(--amber); color: #1A1206; display: flex; flex-direction: column; align-items: center; justify-content: center; text-align: center; }
+  .disc b { font-family: 'Space Grotesk', sans-serif; font-size: 19px; line-height: 1; }
+  .disc span { font-size: 8.5px; font-weight: 600; margin-top: 2px; }
+  .band h3 { font-family: 'Space Grotesk', sans-serif; font-size: 14px; font-weight: 600; }
+  .band .sub { font-size: 9.6px; color: #B7C5CD; margin: 1mm 0 2.5mm; }
+  .chips { display: flex; flex-wrap: wrap; gap: 1.6mm; }
+  .chips span { border: 1px solid #3A4B55; border-radius: 999px; padding: 3px 9px; font-size: 9.2px; color: #DCE4E8; }
+  .chips span.hi { border-color: var(--amber); color: var(--amber); }
+  .ai { margin: 3.5mm 12mm 0; border: 1.5px solid var(--amber); background: #FFF8EC; border-radius: 8px; padding: 3.5mm 5.5mm; display: flex; gap: 5mm; align-items: center; }
+  .ai .txt { flex: 1; }
+  .tag { display: inline-block; background: var(--navy); color: var(--amber); font-size: 8px; font-weight: 700; letter-spacing: .08em; border-radius: 3px; padding: 2px 6px; }
+  .ai h3 { font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; margin: 1.5mm 0 1mm; }
+  .ai p { font-size: 9.8px; line-height: 1.5; color: var(--muted); }
+  .ai ul { list-style: none; margin-top: 2mm; }
+  .ai li { font-size: 9.8px; line-height: 1.5; padding-left: 4mm; position: relative; margin-bottom: .6mm; }
+  .ai li::before, .grid li::before { content: ''; position: absolute; left: 0; top: 5px; width: 5px; height: 5px; border-radius: 50%; background: var(--amber); }
+  .ai .pic { flex: none; width: 58mm; height: 36mm; border-radius: 5px; border: 1px solid var(--line); background: #fff center top / cover no-repeat; box-shadow: 0 1px 6px rgba(0,0,0,.1); }
+  h2 { font-family: 'Space Grotesk', sans-serif; font-size: 14.5px; margin: 4mm 12mm 2mm; }
+  .grid { list-style: none; display: grid; grid-template-columns: 1fr 1fr; gap: 1.6mm 8mm; padding: 0 12mm; }
+  .grid li { position: relative; padding-left: 4mm; font-size: 9.6px; line-height: 1.45; color: var(--muted); }
+  .grid li b { display: block; color: var(--text); font-size: 10.3px; font-weight: 600; }
+  .steps { margin: 3mm 12mm 0; border: 1px solid var(--line); border-radius: 6px; display: flex; justify-content: space-between; padding: 2.6mm 5mm; font-size: 9.8px; }
+  .steps b { font-weight: 700; }
+  .foot { position: absolute; left: 0; right: 0; bottom: 0; height: 34mm; background: var(--navy); color: #EDF1F3; padding: 5mm 12mm; display: flex; justify-content: space-between; }
+  .foot h3 { font-family: 'Space Grotesk', sans-serif; font-size: 17px; margin-bottom: 2.5mm; }
+  .foot table { border-collapse: collapse; font-size: 10.3px; }
+  .foot td { padding: .5mm 0; }
+  .foot td:first-child { font-weight: 600; width: 22mm; }
+  .foot a { color: var(--amber); text-decoration: none; font-weight: 500; }
+  .foot .small { font-size: 9px; color: #B7C5CD; margin-top: 1.8mm; }
+  .qr { text-align: center; font-size: 8.5px; color: #B7C5CD; }
+  .qr .box { background: #fff; border-radius: 6px; padding: 1.6mm; width: 24mm; height: 24mm; margin-bottom: 1.2mm; }
+  .qr svg { width: 100%; height: 100%; display: block; }
+</style>
+</head>
+<body>
+  <div class="top">
+    <div class="bar">
+      <div class="brand"><img src="../images/icon-192.png" alt=""><span>Wyze<span class="a">stock</span></span></div>
+      <div class="pill">Works with any ERP</div>
+    </div>
+    <h1>Hold <span class="a">less stock</span>.<br>Run out less often.</h1>
+    <p class="lead">Wyzestock connects to your ERP and works out, for every item at every location, how much stock you should hold,
+      what to order, what to move and what is tied up in excess. Seasonal forecasts, bills of material and a demand management
+      report every morning are built in. No spreadsheets.</p>
+  </div>
+
+  <div class="shots">
+    <div class="shot"><div class="img" style="background-image:url(../images/overview-dark.png)"></div>
+      <p><b>Overview:</b> stock value against model stock, excess and stock-outs</p></div>
+    <div class="shot"><div class="img" style="background-image:url(../images/stock-position.png)"></div>
+      <p><b>Stock position:</b> on hand, model stock, excess and shortfall per item</p></div>
+    <div class="shot"><div class="img" style="background-image:url(../images/distribution.png)"></div>
+      <p><b>Distribution:</b> transfers that cover shortages from stock you already own</p></div>
+  </div>
+
+  <div class="band">
+    <div class="disc"><b>Right</b><span>stock, right place</span></div>
+    <div>
+      <h3>A target for every item, at every location</h3>
+      <p class="sub">Model stock and safety stock from the forecast, the lead time and the service level each item deserves.</p>
+      <div class="chips">
+        <span>Stock position</span><span class="hi">Model stock</span><span>Safety stock</span><span>Exceptions</span>
+        <span>Replenishment</span><span>Purchase orders</span><span>Distribution</span><span>Seasonal forecasts</span>
+        <span>Bills of material</span><span>Demand management</span>
+      </div>
+    </div>
+  </div>
+
+  <div class="ai">
+    <div class="txt">
+      <span class="tag">OPTIONAL</span>
+      <h3>AI Insights: ask why, and get a plain-English answer</h3>
+      <p>Wyzestock calculates every figure itself. AI explains them in plain English, and every number in the answer is checked
+        against your data.</p>
+      <ul>
+        <li><b>Explain these figures:</b> why an item is short, in excess or slow moving.</li>
+        <li><b>What needs attention today:</b> ranked, each with a suggested next step.</li>
+        <li><b>Monthly commentary</b> for the demand meeting. Switched on per company.</li>
+      </ul>
+    </div>
+    <div class="pic" style="background-image:url(../images/ai-attention.png)"></div>
+  </div>
+
+  <h2>What you get</h2>
+  <ul class="grid">
+    <li><b>Model stock and safety stock</b>Targets by ABC-XYZ class, so stock goes where it pays.</li>
+    <li><b>Exceptions</b>Stock-outs, excess and slow movers, each valued at cost.</li>
+    <li><b>Replenishment</b>Orders per supplier, rounded to minimum order and pack.</li>
+    <li><b>Distribution</b>Transfers between locations before anything new is bought.</li>
+    <li><b>Demand management report</b>Sales against forecast, emailed as Excel every morning.</li>
+    <li><b>Bills of material</b>Component demand worked out from finished-good sales.</li>
+    <li><b>Secure, role-based access</b>Per user and company. On desktop, tablet and phone.</li>
+    <li><b>Your data stays yours</b>Read-only from your ERP. We never change anything in it.</li>
+  </ul>
+
+  <div class="steps">
+    <span><b>1 Connect</b> to your ERP</span>
+    <span><b>2 Sync twice a day</b>, at 07:00 and 14:00</span>
+    <span><b>3 Act</b> on today's lists</span>
+  </div>
+
+  <div class="foot">
+    <div>
+      <h3>See it on your own numbers</h3>
+      <table>
+        <tr><td>Web</td><td><a href="https://wyzestock.co.za">wyzestock.co.za</a></td></tr>
+        <tr><td>Email</td><td><a href="mailto:support@wyzestock.co.za">support@wyzestock.co.za</a></td></tr>
+        <tr><td>WhatsApp</td><td><a href="https://wa.me/27621847381">+27 62 184 7381</a></td></tr>
+      </table>
+      <p class="small">ERP or accounting partner? See <a href="https://wyzestock.co.za/partners/">wyzestock.co.za/partners</a></p>
+    </div>
+    <div class="qr"><div class="box">{{QR}}</div>wyzestock.co.za</div>
+  </div>
+</body>
+</html>
