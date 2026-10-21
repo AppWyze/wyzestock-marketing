@@ -395,9 +395,16 @@ def home():
                         'AI explanations checked against your figures', 'Automatic ERP sync twice a day', 'PDF and Excel export'],
         'url': SITE, 'publisher': {'@type': 'Organization', 'name': 'CL Wyeth t/a Wyzelink', 'url': SITE},
     }
+    video = {
+        '@type': 'VideoObject', 'name': 'Wyzestock in 80 seconds',
+        'description': 'Too much or too little stock both cost money. How Wyzestock frees up capital and keeps customers served.',
+        'thumbnailUrl': f'{SITE}/images/video-poster.jpg', 'contentUrl': f'{SITE}/videos/wyzestock-intro.mp4',
+        'uploadDate': '2026-10-21', 'duration': 'PT1M20S', 'embedUrl': f'{SITE}/#video',
+    }
+    schema = {'@context': 'https://schema.org', '@graph': [{k: v for k, v in schema.items() if k != '@context'}, video]}
     out = head('Wyzestock: Inventory Optimisation, Replenishment & Distribution',
-               'Hold less stock and run out less often. Model stock, reorder points, purchase and transfer suggestions and seasonal '
-               'forecasts for every item at every location, synced from your ERP.', '/', schema)
+               'Hold less stock and run out less often. Model stock, purchase and transfer suggestions and seasonal forecasts for '
+               'every item at every location, from your ERP.', '/', schema)
     out += nav(home=True)
     out += f'''
 <main id="top">
@@ -427,7 +434,7 @@ def home():
   <section class="product-shot">
     <div class="wrap">
       <div class="shot-frame">
-        <img src="/images/overview-dark.png" alt="Wyzestock Overview in dark mode: stock value, excess, stock-outs and the items that need attention across the winery and three depots" loading="eager">
+        <img src="/images/overview-dark.webp" alt="Wyzestock Overview in dark mode: stock value, excess, stock-outs and the items that need attention across the winery and three depots" loading="eager">
       </div>
     </div>
   </section>
@@ -538,45 +545,45 @@ def home():
                     'Every item at every location, with its model stock beside what is actually on the shelf. The gap, in units and in rand, is the money Wyzestock can free up, or the sales it can protect.',
                     ['On hand, allocated, available and on purchase order', 'Model stock, reorder point and safety stock for each location',
                      'Days of cover and the date it will run out', 'Click any item for its full detail, forecast and bill of material'],
-                    [('stock-position.png', 'Wyzestock Stock Position: every wine at every depot with on hand, available, model stock, days cover, excess and shortfall'),
-                     ('item-detail.png', 'Wyzestock item detail window: general details, stock, policy, the twelve-month forecast and the same item at other locations')],
+                    [('stock-position.webp', 'Wyzestock Stock Position: every wine at every depot with on hand, available, model stock, days cover, excess and shortfall'),
+                     ('item-detail.webp', 'Wyzestock item detail window: general details, stock, policy, the twelve-month forecast and the same item at other locations')],
                     link=('/stock-optimisation/', 'More about stock optimisation'))
     out += showcase('exceptions', 'Exceptions', 'Start with the items that need you today',
                     'Wyzestock sorts the exceptions out of thousands of item and location combinations and puts a value on each, so the first thing you look at is the thing that costs the most.',
                     ['Stock-outs and items that will run out before stock can arrive', 'Excess above model stock, valued at cost',
                      'Slow-moving stock by 30, 60, 90 and 120 days without a sale', 'Purchase orders that are more than you need'],
-                    [('exceptions.png', 'Wyzestock Exceptions: stock-outs, potential stock-outs, excess and slow-moving items with their values')], reverse=True)
+                    [('exceptions.webp', 'Wyzestock Exceptions: stock-outs, potential stock-outs, excess and slow-moving items with their values')], reverse=True)
     out += showcase('replenishment', 'Replenishment', 'Know what to order, from whom, and how much',
                     'Suggested orders for every supplier, worked out from the model stock, what is already on order and the lead time, and rounded the way you actually buy.',
                     ['Rounded to the minimum order quantity and the pack or pallet multiple', 'Economic order quantity alongside, for the items where it matters',
                      'Open purchase orders, with the overdue ones highlighted', 'Filter by supplier, location, group or category and export to Excel'],
-                    [('replenishment.png', 'Wyzestock Replenishment: suggested orders by supplier with model stock, on order, lead time and rounded order quantity'),
-                     ('purchase-orders.png', 'Wyzestock Purchase Orders: open orders with due dates, outstanding quantities and overdue lines in red')],
+                    [('replenishment.webp', 'Wyzestock Replenishment: suggested orders by supplier with model stock, on order, lead time and rounded order quantity'),
+                     ('purchase-orders.webp', 'Wyzestock Purchase Orders: open orders with due dates, outstanding quantities and overdue lines in red')],
                     link=('/replenishment/', 'More about replenishment'))
     out += showcase('distribution', 'Distribution', 'Move stock before you buy more of it',
                     'One depot is short while another holds too much. Wyzestock suggests the transfers that cover the shortage from stock you already own, from the locations you choose, in the order you choose.',
                     ['Transfers from your production or central warehouse first, then from other depots', 'Lines that cannot be covered, so you know what to make or buy',
                      'The value of every transfer and every uncovered line', 'Press any line to see the item at every location'],
-                    [('distribution.png', 'Wyzestock Distribution: suggested transfers from the winery to the Cape Town, Johannesburg and Durban depots')], reverse=True,
+                    [('distribution.webp', 'Wyzestock Distribution: suggested transfers from the winery to the Cape Town, Johannesburg and Durban depots')], reverse=True,
                     link=('/distribution/', 'More about distribution'))
     out += showcase('demand-management', 'Demand management', 'The state of the month, in your inbox every morning',
                     'Sales month to date against forecast, the run rate for the rest of the month, stock cover and production against plan, by range and by item. Emailed as an Excel report after the morning update.',
                     ['Overview by range, with the target for the day of the month', 'Detail laid out like the report your team already uses',
                      'Case Sales Predictor: where each item will land at the current run rate', 'Production plan and manual forecast captured in the app'],
-                    [('dm-overview.png', 'Wyzestock Demand Management overview: sales against forecast by range with the month-to-date target'),
-                     ('case-predictor.png', 'Wyzestock Case Sales Predictor: sales and orders, forecast, run rate per day and projected surplus or shortfall per item')],
+                    [('dm-overview.webp', 'Wyzestock Demand Management overview: sales against forecast by range with the month-to-date target'),
+                     ('case-predictor.webp', 'Wyzestock Case Sales Predictor: sales and orders, forecast, run rate per day and projected surplus or shortfall per item')],
                     link=('/demand-management/', 'More about demand management'))
     out += showcase('bom', 'Bills of material', 'From finished goods to every component behind them',
                     'Wyzestock reads your recipes from the ERP, works out component demand from finished-good sales, and shows what each product is made from and where each component is used.',
                     ['Component forecasts from finished-good demand, at the production location', 'Made from: every component, every level, with the stock behind it',
                      'Used in: which finished goods a short component will stop', 'Raw materials, packaging and consumables planned like everything else'],
-                    [('bom.png', 'Wyzestock Bill of material window: a wine made from bulk wine, glass, closure, label and carton, with stock and days of cover for each')])
+                    [('bom.webp', 'Wyzestock Bill of material window: a wine made from bulk wine, glass, closure, label and carton, with stock and days of cover for each')])
     out += showcase('ai-insights', 'AI Insights', 'Ask why, and get an answer in plain English',
                     'Buttons in Wyzestock explain an item\'s figures, say why it is excess or slow moving, list what needs attention today and write the monthly demand commentary. Every number in the answer is checked against your data before you see it.',
                     ['Explain these figures, for any item at any location', 'What needs attention today, ranked, with a suggested next step',
                      'Monthly commentary for the demand management meeting', 'A review of the forecasts that look out of line'],
-                    [('ai-attention.png', 'Wyzestock What needs attention today: stock-outs, items about to run out and overdue orders, each with what to do'),
-                     ('ai-explain.png', 'Wyzestock Explain these figures: a plain-English explanation of an item\'s stock, forecast and model stock')], reverse=True,
+                    [('ai-attention.webp', 'Wyzestock What needs attention today: stock-outs, items about to run out and overdue orders, each with what to do'),
+                     ('ai-explain.webp', 'Wyzestock Explain these figures: a plain-English explanation of an item\'s stock, forecast and model stock')], reverse=True,
                     link=('/ai-insights/', 'More about AI Insights'))
     out += f'''
   <!-- SYNC -->
@@ -618,7 +625,10 @@ def home():
 
 def landing(path, crumb, eyebrow, h1, sub, hero_img, how_title, how_sub, steps, benefits_label, benefits_title, benefits,
             side_imgs, bigger, faq, title, desc, chips=None):
-    out = head(title, desc, path)
+    crumbs = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
+        {'@type': 'ListItem', 'position': 1, 'name': 'Wyzestock', 'item': f'{SITE}/'},
+        {'@type': 'ListItem', 'position': 2, 'name': crumb, 'item': f'{SITE}{path}'}]}
+    out = head(title, desc, path, crumbs)
     out += nav()
     st = '\n'.join(f'''        <div class="step"><div class="step-num">{n}</div><h3>{t}</h3>
           <p>{d}</p></div>''' for n, (t, d) in enumerate(steps, 1))
@@ -731,7 +741,7 @@ def stock_page():
         '/stock-optimisation/', 'Stock optimisation', 'Inventory optimisation for any ERP',
         'Free up cash <span class="accent">without running short</span>',
         'Wyzestock works out a model stock for every item at every location from its forecast, its lead time and the service level it deserves. Then it shows you, in units and in rand, where you hold too much and where you are about to run out.',
-        ('stock-position.png', 'Wyzestock Stock Position with model stock, excess and shortfall per item and location'),
+        ('stock-position.webp', 'Wyzestock Stock Position with model stock, excess and shortfall per item and location'),
         'From a list of items to a target for each one', 'Wyzestock does the arithmetic for every item at every location, every day.',
         [('Every item is classified', 'Items are ranked A, B or C by the value of their annual usage, and X, Y or Z by how steady their demand is. Each of the nine classes gets the service level you set.'),
          ('A target is calculated', 'Safety stock comes from the service level and how far actual sales stray from the forecast. Model stock covers the lead time and the review period, plus that safety stock.'),
@@ -743,8 +753,8 @@ def stock_page():
          ('Protect what matters', 'A items with steady demand get a high service level; erratic C items do not, so safety stock goes where it pays.'),
          ('Trust the inputs', 'Lead times, minimum orders and pack sizes come from your ERP and can be set per item and location in Settings.'),
          ('Choose your method', 'Use the service-level method, or the simpler lead-time method many teams already know.')],
-        [('exceptions.png', 'Wyzestock Exceptions list with stock-outs, excess and slow-moving stock'),
-         ('item-detail.png', 'Wyzestock item detail with stock, policy and forecast')],
+        [('exceptions.webp', 'Wyzestock Exceptions list with stock-outs, excess and slow-moving stock'),
+         ('item-detail.webp', 'Wyzestock item detail with stock, policy and forecast')],
         ('Stock optimisation drives everything else', f'The same model stock feeds {a("/replenishment/", "replenishment")}, {a("/distribution/", "distribution")} and the {a("/demand-management/", "demand management report")}. {a("/#hub", "See how it fits together")}.'),
         [('What is model stock?', 'Model stock is the quantity Wyzestock suggests you hold for an item at a location: enough to cover demand over the lead time and the review period, plus safety stock for the service level you want. Anything well above it is excess.'),
          ('How is safety stock worked out?', 'From the service level for the item\'s ABC-XYZ class and how far actual sales have strayed from the forecast. Steady, valuable items get more protection; erratic, low-value items less.'),
@@ -761,7 +771,7 @@ def replenishment_page():
         '/replenishment/', 'Replenishment', 'Purchase suggestions for any ERP',
         'Order <span class="accent">what you need, when you need it</span>',
         'Wyzestock suggests what to order from every supplier, based on the model stock, what is already on order and the lead time, rounded to the minimum order and the pack size. It tracks your open purchase orders and flags the late ones.',
-        ('replenishment.png', 'Wyzestock Replenishment suggestions by supplier'),
+        ('replenishment.webp', 'Wyzestock Replenishment suggestions by supplier'),
         'From a shortfall to a purchase order line', 'The suggestion is worked out item by item, then gathered by supplier.',
         [('Inventory position', 'On hand, less what is allocated to customers, plus what is already on order, for each item at each location.'),
          ('Below the reorder point?', 'When the inventory position drops below the reorder point, Wyzestock suggests enough to bring it back up to the model stock.'),
@@ -773,8 +783,8 @@ def replenishment_page():
          ('Chase late orders', 'Overdue purchase order lines are shown in red, with their value.'),
          ('Spot surplus orders', 'Orders that would take stock well above the model are flagged before the goods arrive.'),
          ('Components too', 'Raw materials and packaging are suggested from finished-good demand through your bills of material.')],
-        [('purchase-orders.png', 'Wyzestock Purchase Orders with overdue lines'),
-         ('bom.png', 'Wyzestock Bill of material window')],
+        [('purchase-orders.webp', 'Wyzestock Purchase Orders with overdue lines'),
+         ('bom.webp', 'Wyzestock Bill of material window')],
         ('Replenishment works from the same targets', f'Suggestions come from the {a("/stock-optimisation/", "model stock")}, and stock can often be {a("/distribution/", "moved between locations")} instead of bought. {a("/#hub", "See how it fits together")}.'),
         [('What does the suggested quantity mean?', 'It is the quantity that brings the item back up to its model stock, after counting stock on hand, allocations and open purchase orders, rounded to the minimum order and order multiple.'),
          ('Does Wyzestock place the orders?', 'No. Wyzestock suggests; you place the order in your ERP as usual. The next load picks it up as an open purchase order.'),
@@ -790,7 +800,7 @@ def distribution_page():
         '/distribution/', 'Distribution', 'Transfers between locations',
         'Use the stock <span class="accent">you already own</span>',
         'When one location is short and another holds more than it needs, Wyzestock suggests the transfer. Each depot draws from the sources you choose, in the order you choose, so you move stock before you buy or make more.',
-        ('distribution.png', 'Wyzestock Distribution suggested transfers'),
+        ('distribution.webp', 'Wyzestock Distribution suggested transfers'),
         'From a shortage to a transfer', 'Distribution runs after the stock calculation, for every item at every depot.',
         [('Shortages are found', 'Each depot\'s available stock is compared with its reorder point and model stock.'),
          ('Sources are checked in order', 'Each depot has a ranked list of sources, usually the production location first and then other depots. Only stock above a source\'s own needs is offered.'),
@@ -802,7 +812,7 @@ def distribution_page():
          ('Value every move', 'Each transfer shows the quantity and its value at cost.'),
          ('Drill into any item', 'Press a line to see the item at every location, with its forecast and bill of material.'),
          ('Export the pick list', 'Send the transfers to the warehouse as Excel or PDF.')],
-        [('stock-position.png', 'Wyzestock Stock Position by location')],
+        [('stock-position.webp', 'Wyzestock Stock Position by location')],
         ('Distribution balances the same targets', f'Transfers use the {a("/stock-optimisation/", "model stock")} at every location, and what cannot be covered becomes a {a("/replenishment/", "purchase suggestion")}. {a("/#hub", "See how it fits together")}.'),
         [('Which locations can a depot draw from?', 'The ones you choose in Settings, ranked. A typical setup is the production location first and neighbouring depots after it.'),
          ('Will it strip a source location?', 'No. A source only offers stock above what it needs for itself.'),
@@ -817,7 +827,7 @@ def dm_page():
         '/demand-management/', 'Demand management', 'Demand management and forecasting',
         'Know where the month <span class="accent">will land</span>, every morning',
         'Sales month to date against forecast, the run rate for the rest of the month, stock cover and production against plan, by range and by item. Wyzestock emails the report as Excel after the morning update, and the Case Sales Predictor shows where each item is heading.',
-        ('dm-overview.png', 'Wyzestock Demand Management overview by range'),
+        ('dm-overview.webp', 'Wyzestock Demand Management overview by range'),
         'From yesterday\'s sales to today\'s decisions', 'The report is rebuilt after every load from your ERP.',
         [('Forecasts for every item', 'Holt-Winters seasonal forecasts from up to 36 months of history, with new, occasional and dormant items handled sensibly, and manual forecasts where you know better.'),
          ('Measured against the day', 'Sales and open orders month to date are compared with the forecast and with where you should be for the working day of the month.'),
@@ -829,8 +839,8 @@ def dm_page():
          ('Production against plan', 'Planned and produced quantities captured in the app, and the balance of production for the month.'),
          ('Manual forecast', 'Capture a forecast per finished good by month where you know more than the history does.'),
          ('Monthly commentary', 'An AI-written summary of the month for the meeting, with every number checked.')],
-        [('case-predictor.png', 'Wyzestock Case Sales Predictor'),
-         ('dm-detail.png', 'Wyzestock Demand Management detail report')],
+        [('case-predictor.webp', 'Wyzestock Case Sales Predictor'),
+         ('dm-detail.webp', 'Wyzestock Demand Management detail report')],
         ('Demand drives the rest', f'The same forecasts set the {a("/stock-optimisation/", "model stock")}, the {a("/replenishment/", "purchase suggestions")} and component demand through your bills of material. {a("/#hub", "See how it fits together")}.'),
         [('Which forecasting method does Wyzestock use?', 'Holt-Winters seasonal forecasting for items with at least a year of history; a flat or category-based forecast for newer items; an average for occasional sellers; and none for items that have stopped selling. Components are forecast from finished goods through the recipes.'),
          ('Can we override the forecast?', 'Yes. A manual forecast per finished good per month replaces the calculated one, and is highlighted wherever it is used.'),
@@ -846,7 +856,7 @@ def ai_page():
         '/ai-insights/', 'AI Insights', 'AI that explains your stock',
         'Ask <span class="accent">why</span>, and get an answer you can trust',
         'Buttons throughout Wyzestock turn the figures into plain English: why an item is excess, what needs attention today, which forecasts look wrong and how the month went. Every number in an answer is checked against your data before you see it.',
-        ('ai-attention.png', 'Wyzestock What needs attention today'),
+        ('ai-attention.webp', 'Wyzestock What needs attention today'),
         'Figures first, words second', 'The AI never does the arithmetic. Wyzestock does, and the AI explains it.',
         [('Wyzestock works out the facts', 'The figures for the question, from stock and orders to the forecast and model stock, are calculated in the database first.'),
          ('The AI puts them into words', 'A short explanation in plain English, written for a stock planner, with a suggested next step.'),
@@ -858,7 +868,7 @@ def ai_page():
          ('Review the forecast', 'Forecasts that look out of line with recent sales, for a second look.'),
          ('Monthly commentary', 'A short write-up of the month for the demand meeting.'),
          ('Under your control', 'Switched on per company, with a daily limit on use.')],
-        [('ai-explain.png', 'Wyzestock Explain these figures')],
+        [('ai-explain.webp', 'Wyzestock Explain these figures')],
         ('AI on top of solid numbers', f'Insights sit on the {a("/stock-optimisation/", "stock calculation")}, the {a("/demand-management/", "forecasts")} and your own ERP data. {a("/#hub", "See how it fits together")}.'),
         [('Does the AI make up numbers?', 'No. Wyzestock calculates every figure first, and any answer containing a number that is not in the facts is thrown away.'),
          ('Is my data used to train AI models?', 'No. Only the figures needed for the question are sent, and they are not used for training.'),
@@ -873,7 +883,7 @@ def partners_page():
         '/partners/', 'For ERP partners', 'For ERP and accounting partners',
         'Give your clients the stock planning <span class="accent">their ERP never did</span>',
         'Your clients already record their stock, sales and purchases in the ERP. Wyzestock turns that into model stock, purchase and transfer suggestions and a daily demand report, without you building or running a planning product.',
-        ('overview-dark.png', 'Wyzestock Overview'),
+        ('overview-dark.webp', 'Wyzestock Overview'),
         'From introduction to suggestions', 'We do the connecting and the running; you stay the trusted advisor.',
         [('Tell us the system', 'Which ERP your client runs, how many locations they have, and what they want to achieve.'),
          ('We connect and map', 'We install the read-only extract, map locations and items, and load up to three years of history.'),
@@ -885,7 +895,7 @@ def partners_page():
          ('A morning report', 'The demand management report by email, every day.'),
          ('Each client kept apart', 'Their own secure space, logins and logo, as in our Fynbos Hill demo.'),
          ('Nothing for you to run', 'We look after the platform, the extract and the support.')],
-        [('stock-position.png', 'Wyzestock Stock Position')],
+        [('stock-position.webp', 'Wyzestock Stock Position')],
         ('Introduce a client, or bundle us with your services', 'Whether you want to introduce a client, offer Wyzestock alongside your own services, or simply see it on a demo company first, we would like to talk.'),
         [('Which ERP systems do you work with?', 'Wyzestock reads the client\'s ERP database directly, so it is not tied to one product. Tell us the system and version and we will confirm how it connects.'),
          ('What access do you need?', 'Read access to the data we extract, on a schedule. We do not change anything in the ERP.'),
