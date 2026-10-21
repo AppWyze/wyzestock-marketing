@@ -432,6 +432,22 @@ def home():
     </div>
   </section>
 
+  <section class="intro-video" id="video">
+    <div class="wrap">
+      <div class="section-head">
+        <div class="section-label">Watch</div>
+        <h2>Wyzestock in 80 seconds</h2>
+        <p>Too much or too little stock both cost money. See how Wyzestock frees up capital and keeps customers served.</p>
+      </div>
+      <div class="video-frame">
+        <video controls preload="none" playsinline poster="/images/video-poster.jpg" aria-label="Wyzestock introduction video">
+          <source src="/videos/wyzestock-intro.mp4" type="video/mp4">
+          Your browser cannot play this video. <a href="/videos/wyzestock-intro.mp4">Download it here</a>.
+        </video>
+      </div>
+    </div>
+  </section>
+
   <!-- HUB -->
   <section class="hub" id="hub">
     <div class="wrap">
