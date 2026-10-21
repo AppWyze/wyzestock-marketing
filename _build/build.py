@@ -413,7 +413,7 @@ def home():
       </p>
       <div class="hero-ctas">
         <a href="#contact" class="btn btn-primary">Get in touch</a>
-        <a href="#video" class="btn btn-ghost">See how it works</a>
+        <a href="#video" class="btn btn-ghost" data-play-video>&#9654;&nbsp; See how it works</a>
       </div>
       <div class="status-strip">
         <span><span class="sdot"></span> Synced from your ERP twice a day</span>
@@ -445,6 +445,17 @@ def home():
           Your browser cannot play this video. <a href="/videos/wyzestock-intro.mp4">Download it here</a>.
         </video>
       </div>
+      <script>
+        document.querySelectorAll('[data-play-video]').forEach(function (btn) {{
+          btn.addEventListener('click', function (e) {{
+            var v = document.querySelector('#video video');
+            if (!v) return;
+            e.preventDefault();
+            document.getElementById('video').scrollIntoView({{ behavior: 'smooth', block: 'center' }});
+            v.play().catch(function () {{}});
+          }});
+        }});
+      </script>
     </div>
   </section>
 
