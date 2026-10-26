@@ -2,4 +2,4 @@ User-agent: *
 Allow: /
 Disallow: /_build/
 
-Sitemap: https://wyzestock.co.za/sitemap.xml
+Sitemap: https://wyzestock.com/sitemap.xml

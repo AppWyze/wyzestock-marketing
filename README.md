@@ -1,6 +1,6 @@
 # Wyzestock marketing site
 
-www.wyzestock.co.za. Same look and feel as www.wyzesales.com (AppWyze/wyzesales-marketing).
+wyzestock.com (wyzestock.co.za redirects to it). Same look and feel as www.wyzesales.com (AppWyze/wyzesales-marketing).
 
 - Static HTML, hosted on Netlify (publish directory: the repo root, no build command).
 - Every page is generated from one layout: edit `_build/build.py` (text) or `_build/site.css` (styles), then run

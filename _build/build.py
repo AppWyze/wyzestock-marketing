@@ -13,7 +13,7 @@ import pathlib
 
 ROOT = pathlib.Path(__file__).resolve().parent.parent
 B = ROOT / '_build'
-SITE = 'https://wyzestock.co.za'  # primary domain on Netlify since 2026-10-21; www redirects here
+SITE = 'https://wyzestock.com'  # primary domain since 2026-10-26 (before: wyzestock.co.za, which now redirects here)
 APP = 'https://app.wyzestock.co.za'
 EMAIL = 'support@wyzestock.co.za'
 WA_NUMBER = '27621847381'

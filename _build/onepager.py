@@ -24,7 +24,7 @@ def qr_svg(url: str) -> str:
 
 
 async def main():
-    html = (B / 'onepager.html').read_text().replace('{{QR}}', qr_svg('https://wyzestock.co.za'))
+    html = (B / 'onepager.html').read_text().replace('{{QR}}', qr_svg('https://wyzestock.com'))
     tmp = B / '_onepager_render.html'
     tmp.write_text(html)
     async with async_playwright() as p:
