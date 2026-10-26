@@ -905,7 +905,21 @@ def partners_page():
         'Offer your ERP clients inventory optimisation, replenishment and distribution planning built from their own data, without building or running it yourself.')
 
 
+def _versioned(text):
+    """Adds ?v=<content hash> to every /images/ and /videos/ link, so a replaced screenshot or video shows at once
+    instead of after the 7-day browser cache (Craig, 2026-10-26: new screenshots still showed the old logo)."""
+    import hashlib, re
+
+    def add(m):
+        f = ROOT / m.group(2).lstrip('/')
+        if not f.is_file():
+            return m.group(0)
+        return f'{m.group(1)}{m.group(2)}?v={hashlib.md5(f.read_bytes()).hexdigest()[:8]}'
+    return re.sub(r'((?:src|href|poster|content)="(?:https://[^/"]+)?)(/(?:images|videos)/[^"?]+)', add, text)
+
+
 def write(path, text):
+    text = _versioned(text)
     p = ROOT / path.strip('/') / 'index.html' if path != '/' else ROOT / 'index.html'
     p.parent.mkdir(parents=True, exist_ok=True)
     p.write_text(text)
