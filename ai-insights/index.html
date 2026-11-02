@@ -661,6 +661,22 @@
     font: 600 14px Inter, sans-serif; background: var(--amber, #FFB23E); color: #1A1206; box-shadow: 0 4px 14px rgba(0,0,0,.35); }
   .sound-on[hidden] { display: none; }
 
+  /* Wyze Owl chat example (an illustration built in HTML, not a screenshot) */
+  .owl-mark { width: 22px; height: 22px; color: var(--text); flex: 0 0 auto; }
+  .owl-chat { border: 1px solid var(--line); border-radius: var(--radius); background: var(--navy-mid); box-shadow: 0 30px 80px -30px rgba(0,0,0,0.55); overflow: hidden; }
+  .owl-chat-head { display: flex; align-items: center; gap: 10px; padding: 14px 18px; border-bottom: 1px solid var(--line); font-weight: 700; }
+  .owl-chat-head .owl-mark { width: 26px; height: 26px; }
+  .owl-chat-head small { margin-left: auto; font-weight: 500; font-size: 12px; color: var(--text-2); }
+  .owl-chat-body { padding: 18px; display: flex; flex-direction: column; gap: 12px; }
+  .owl-msg { display: flex; gap: 8px; align-items: flex-start; }
+  .owl-msg.me { justify-content: flex-end; }
+  .owl-bubble { max-width: 86%; padding: 10px 14px; border-radius: 12px; font-size: 14px; line-height: 1.5; background: rgba(255,255,255,0.06); }
+  .owl-msg.me .owl-bubble { background: rgba(255,178,62,0.16); }
+  .owl-bubble ol { margin: 6px 0 0 18px; padding: 0; }
+  .owl-msg .owl-mark { margin-top: 8px; width: 20px; height: 20px; }
+  .owl-chat-foot { padding: 10px 18px 14px; border-top: 1px solid var(--line); font-size: 12px; color: var(--text-2); }
+  .owl-note h3 { margin-bottom: 12px; }
+
   /* ---------- WyzeStock additions ---------- */
   .flow-svg { width: 100%; height: auto; display: block; }
   .stat-row { display: grid; grid-template-columns: repeat(3, 1fr); gap: 1px; background: var(--line); border: 1px solid var(--line);
@@ -680,11 +696,12 @@
       <span>Wyze<span class="accent">Stock</span></span>
     </a>
     <div class="nav-links">
-      <a href="/stock-optimisation/">Stock optimisation</a>
+      <a href="/stock-optimisation/">Optimisation</a>
       <a href="/replenishment/">Replenishment</a>
       <a href="/distribution/">Distribution</a>
-      <a href="/demand-management/">Demand management</a>
+      <a href="/demand-management/">Demand</a>
       <a href="/ai-insights/">AI Insights</a>
+      <a href="/wyze-owl/">Wyze Owl</a>
       <a href="/partners/">Partners</a>
     </div>
     <div class="nav-cta">
@@ -811,6 +828,7 @@
       <a href="/distribution/">Distribution</a>
       <a href="/demand-management/">Demand management</a>
       <a href="/ai-insights/">AI Insights</a>
+      <a href="/wyze-owl/">Wyze Owl</a>
       <a href="/partners/">For ERP partners</a>
       <a href="https://app.wyzestock.co.za">Sign in</a>
       <a href="mailto:support@wyzestock.co.za">support@wyzestock.co.za</a>

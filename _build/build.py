@@ -30,6 +30,7 @@ PAGES = [
     ('/distribution/', 'Distribution'),
     ('/demand-management/', 'Demand management'),
     ('/ai-insights/', 'AI Insights'),
+    ('/wyze-owl/', 'Wyze Owl'),
 ]
 
 
@@ -100,9 +101,9 @@ def head(title, desc, path, schema=None):
 
 def nav(home=False):
     p = '' if home else '/'
-    links = [('/stock-optimisation/', 'Stock optimisation'), ('/replenishment/', 'Replenishment'),
-             ('/distribution/', 'Distribution'), ('/demand-management/', 'Demand management'), ('/ai-insights/', 'AI Insights'),
-             ('/partners/', 'Partners')]
+    links = [('/stock-optimisation/', 'Optimisation'), ('/replenishment/', 'Replenishment'),
+             ('/distribution/', 'Distribution'), ('/demand-management/', 'Demand'), ('/ai-insights/', 'AI Insights'),
+             ('/wyze-owl/', 'Wyze Owl'), ('/partners/', 'Partners')]
     brand_href = '#top' if home else '/'
     items = '\n'.join(f'      <a href="{h}">{t}</a>' for h, t in links)
     return f'''
@@ -382,6 +383,31 @@ SYNC_SVG = '''
         </svg>'''
 
 
+OWL_SVG = ('<svg class="owl-mark" viewBox="0 0 100 100" aria-hidden="true"><path d="M18 30 L22 8 L38 20 Q50 16 62 20 L78 8 L82 30 Q96 62 78 86 Q50 100 22 86 Q4 62 18 30 Z" '
+           'fill="none" stroke="currentColor" stroke-width="8" stroke-linejoin="round"/><circle cx="36" cy="45" r="13" fill="none" stroke="currentColor" stroke-width="8"/>'
+           '<circle cx="64" cy="45" r="13" fill="none" stroke="currentColor" stroke-width="8"/><circle cx="36" cy="46" r="5.5" fill="currentColor"/><circle cx="64" cy="46" r="5.5" fill="currentColor"/>'
+           '<path d="M45 58 L55 58 L50 70 Z" fill="var(--amber)"/></svg>')
+
+
+def owl_chat():
+    # an illustration built in HTML, not a screenshot; the figures are made up and it says so
+    return f'''<div class="owl-chat" role="img" aria-label="An example Wyze Owl conversation with made-up figures: a planner asks what needs ordering this week, and Wyze Owl lists three items with quantities">
+            <div class="owl-chat-head">{OWL_SVG} Wyze Owl <small>Example with made-up figures</small></div>
+            <div class="owl-chat-body">
+              <div class="owl-msg me"><div class="owl-bubble">What needs ordering this week?</div></div>
+              <div class="owl-msg">{OWL_SVG}<div class="owl-bubble">12 lines are due for ordering, worth R84,900 at cost. The largest are:
+                <ol>
+                  <li>Carton 6-pack, Paarl Packaging: 4,000 (R20,300)</li>
+                  <li>Label, front: 12,500 (R14,200)</li>
+                  <li>Screw cap 28mm: 9,000 (R9,800)</li>
+                </ol></div></div>
+              <div class="owl-msg me"><div class="owl-bubble">Is anything from Paarl Packaging late?</div></div>
+              <div class="owl-msg">{OWL_SVG}<div class="owl-bubble">Yes, one order. PO10044 for 3,000 gift boxes was due on 28 Oct and is 5 days late, worth R108,000.</div></div>
+            </div>
+            <div class="owl-chat-foot">Answers are worked out from your own WyzeStock figures.</div>
+          </div>'''
+
+
 def home():
     schema = {
         '@context': 'https://schema.org', '@type': 'SoftwareApplication', 'name': 'WyzeStock',
@@ -416,7 +442,7 @@ def home():
       <p class="hero-sub">
         WyzeStock connects to your ERP and works out, for every item at every location, how much stock you should
         hold, what to order, what to move and what is tied up in excess. Seasonal forecasts, bills of material and a
-        demand management report every morning are built in. No spreadsheets.
+        demand management report every morning are built in, and Wyze Owl answers your questions. No spreadsheets.
       </p>
       <div class="hero-ctas">
         <a href="#contact" class="btn btn-primary">Get in touch</a>
@@ -539,6 +565,7 @@ def home():
         ('🧾', 'Demand management', 'Sales against forecast, stock cover and production month to date, emailed as an Excel report every morning, plus the Case Sales Predictor.'),
         ('🧩', 'Bills of material', 'Component demand worked out from finished-good sales through your recipes, and a clear view of what each product is made from and used in.'),
         ('✨', 'AI Insights', 'Plain-English explanations of an item\'s figures, what needs attention today and a monthly commentary, with every number checked against your data.'),
+        ('🦉', 'Wyze Owl', 'A chat inside WyzeStock. Ask what to order, what is short or which orders are late, and get a short answer worked out from your own figures. An optional add-on.'),
     ], 'What WyzeStock does', 'Everything you need to plan stock, in one place', 'One platform that turns the stock, sales and orders already in your ERP into targets, exceptions and suggestions, recalculated every day.')
 
     out += showcase('stock-position', 'Stock position', 'See what you hold against what you should hold',
@@ -586,6 +613,30 @@ def home():
                      ('ai-explain.webp', 'WyzeStock Explain these figures: a plain-English explanation of an item\'s stock, forecast and model stock')], reverse=True,
                     link=('/ai-insights/', 'More about AI Insights'))
     out += f'''
+  <!-- WYZE OWL -->
+  <section class="showcase-section" id="wyze-owl">
+    <div class="wrap">
+      <div class="showcase-row top-align">
+        <div class="showcase-text">
+          <div class="section-label">Wyze Owl</div>
+          <h2>Ask your stock a question, in your own words</h2>
+          <p>Wyze Owl is a chat inside WyzeStock. Type a question the way you would ask a colleague and get a short answer worked out from your own figures. An optional add-on, with three monthly tiers.</p>
+          <ul class="showcase-list">
+            <li>What to order, what is short, what is in excess and what is on its way: ask about any of them</li>
+            <li>Items, locations, suppliers, purchase orders, forecasts and sales</li>
+            <li>Figures are checked against your data before the answer is shown</li>
+            <li>Suggested questions to get you started, and follow-up questions in the same conversation</li>
+          </ul>
+          <a class="learn-more" href="/wyze-owl/">More about Wyze Owl &rarr;</a>
+        </div>
+        <div class="showcase-image">
+          {owl_chat()}
+        </div>
+      </div>
+    </div>
+  </section>
+'''
+    out += f'''
   <!-- SYNC -->
   <section class="showcase-section" id="sync">
     <div class="wrap">
@@ -624,7 +675,7 @@ def home():
 # ───────────────────────────── Landing pages ─────────────────────────────
 
 def landing(path, crumb, eyebrow, h1, sub, hero_img, how_title, how_sub, steps, benefits_label, benefits_title, benefits,
-            side_imgs, bigger, faq, title, desc, chips=None):
+            side_imgs, bigger, faq, title, desc, chips=None, hero_html=None, side_html=None):
     crumbs = {'@context': 'https://schema.org', '@type': 'BreadcrumbList', 'itemListElement': [
         {'@type': 'ListItem', 'position': 1, 'name': 'WyzeStock', 'item': f'{SITE}/'},
         {'@type': 'ListItem', 'position': 2, 'name': crumb, 'item': f'{SITE}{path}'}]}
@@ -636,7 +687,10 @@ def landing(path, crumb, eyebrow, h1, sub, hero_img, how_title, how_sub, steps, 
     ch = ''
     if chips:
         ch = '\n          <div class="chip-row">' + ''.join(f'<span class="chip"><i style="background:{c}"></i> {t}</span>' for t, c in chips) + '</div>'
-    side = '\n          '.join(frame(*i) for i in side_imgs)
+    side = side_html or '\n          '.join(frame(*i) for i in side_imgs)
+    shot = hero_html or f'''<div class="shot-frame">
+        <div><img src="/images/{hero_img[0]}" alt="{esc(hero_img[1])}" loading="eager"></div>
+      </div>'''
     fq = '\n'.join(f'        <details><summary>{q}</summary><div class="ans">{a}</div></details>' for q, a in faq)
     out += f'''
 <main id="top">
@@ -656,9 +710,7 @@ def landing(path, crumb, eyebrow, h1, sub, hero_img, how_title, how_sub, steps, 
 
   <section class="product-shot">
     <div class="wrap">
-      <div class="shot-frame">
-        <div><img src="/images/{hero_img[0]}" alt="{esc(hero_img[1])}" loading="eager"></div>
-      </div>
+      {shot}
     </div>
   </section>
 
@@ -878,6 +930,37 @@ def ai_page():
         'Plain-English explanations of stock, excess and forecasts, what needs attention today and a monthly commentary, with every number checked against your data.')
 
 
+def owl_page():
+    return landing(
+        '/wyze-owl/', 'Wyze Owl', 'Wyze Owl, the WyzeStock data chat',
+        'Ask your stock <span class="accent">a question</span>, in your own words',
+        'Wyze Owl is a chat inside WyzeStock. Ask what to order, what is about to run out or which purchase orders are late, and get a short, plain-English answer worked out from your own figures. No reports to build, no filters to set.',
+        None,
+        'Press the owl, ask, read the answer', 'Wyze Owl reads the same figures as the rest of WyzeStock, synced from your ERP twice a day.',
+        [('Press the owl', 'The owl button sits in the top bar of WyzeStock once your company has switched Wyze Owl on.'),
+         ('Ask in your own words', 'Type a question, or pick one of the suggested questions. Ask a follow-up in the same conversation, such as <em>and is anything from that supplier late?</em>'),
+         ('Get a checked answer', 'Wyze Owl looks up the figures, checks them against your data, and answers in a few lines. If it cannot answer from your data, it says so instead of guessing.')],
+        'What you can ask', 'The questions you would otherwise ask your planner',
+        [('What should we order?', 'Suggested orders, in total or by supplier, location or category, largest first.'),
+         ('What is short?', 'Stock-outs and items that will run out before stock can arrive, with their run-out dates.'),
+         ('Where is the money tied up?', 'Excess, slow-moving stock and surplus on order, valued at cost.'),
+         ('What is late?', 'Open and overdue purchase orders, and open sales orders.'),
+         ('Can we move stock instead?', 'Suggested transfers that cover a shortage from stock you already own.'),
+         ('Tell me about an item or supplier', 'Stock at each location, sales, forecast, open orders and lead times.')],
+        [], ('Three tiers: Light, Medium or Heavy', f'Choose a monthly allowance of questions for the whole company. {a("/ai-insights/", "AI Insights")} write-ups come out of the same allowance. Your usage is shown in WyzeStock, and each user can ask up to 30 questions a day. {a("/#contact", "Ask us about pricing")}.'),
+        [('What is Wyze Owl?', 'A chat inside WyzeStock. You ask a question about your stock in your own words and it answers from your company\'s WyzeStock figures.'),
+         ('What counts as a question?', 'Each message you send to Wyze Owl counts as one question, including follow-ups. Each AI Insights write-up also counts as one. Limit messages, such as the allowance being used up, do not count.'),
+         ('What happens when the allowance is used up?', 'Wyze Owl pauses until the next month, or you can move to a bigger tier and carry on straight away.'),
+         ('How accurate are the answers?', 'Wyze Owl works from the figures WyzeStock has calculated and checks them before showing the answer. If it cannot answer from your data, it says so. For important decisions, check the figures on the WyzeStock screens.'),
+         ('Is my data used to train AI?', 'No. Only the summarised figures needed for the question are sent, and they are not used for training.'),
+         ('Are the conversations kept?', 'The conversation lives on your screen and is cleared when you close it. We log the question and its outcome, for billing and support.'),
+         ('How do we switch it on?', 'Get in touch and tell us which tier you would like. We switch it on for your company and the owl button appears in WyzeStock.')],
+        'Wyze Owl: Ask Your Stock Data | WyzeStock',
+        'A chat inside WyzeStock: ask what to order, what is short, what is late or where money is tied up, and get a short answer checked against your own figures.',
+        hero_html=f'<div style="max-width:680px;margin:0 auto;">{owl_chat()}</div>',
+        side_html='<div class="owl-note"><h3>Safe by design</h3><ul class="benefit-list"><li><strong>Your company only</strong>Wyze Owl answers as you and can only read your own company\'s figures.</li><li><strong>Summaries, not data dumps</strong>It works from summarised figures and never exports your data.</li><li><strong>Optional</strong>Off until your company chooses a tier, and can be switched off at any time.</li></ul></div>')
+
+
 def partners_page():
     return landing(
         '/partners/', 'For ERP partners', 'For ERP and accounting partners',
@@ -933,8 +1016,9 @@ if __name__ == '__main__':
     write('/distribution/', distribution_page())
     write('/demand-management/', dm_page())
     write('/ai-insights/', ai_page())
+    write('/wyze-owl/', owl_page())
     write('/partners/', partners_page())
     urls = ['/'] + [p for p, _ in PAGES] + ['/partners/']
     (ROOT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-                                      + ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>2026-10-21</lastmod></url>\n' for u in urls) + '</urlset>\n')
+                                      + ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>2026-11-02</lastmod></url>\n' for u in urls) + '</urlset>\n')
     (ROOT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /_build/\n\nSitemap: {SITE}/sitemap.xml\n')

@@ -59,6 +59,11 @@
   .qr { text-align: center; font-size: 8.5px; color: #B7C5CD; }
   .qr .box { background: #fff; border-radius: 6px; padding: 1.6mm; width: 24mm; height: 24mm; margin-bottom: 1.2mm; }
   .qr svg { width: 100%; height: 100%; display: block; }
+  .ai { align-items: stretch; gap: 0; padding: 3.5mm 0; }
+  .ai .txt { flex: 1 1 50%; padding: 0 5mm; min-width: 0; }
+  .ai .txt + .txt { border-left: 1px solid #F1D9AE; }
+  .ai h3 { display: flex; align-items: center; gap: 2mm; font-size: 13.5px; }
+  .owl { width: 5.5mm; height: 5.5mm; flex: none; }
 </style>
 </head>
 <body>
@@ -70,7 +75,7 @@
     <h1>Hold <span class="a">less stock</span>.<br>Run out less often.</h1>
     <p class="lead">WyzeStock connects to your ERP and works out, for every item at every location, how much stock you should hold,
       what to order, what to move and what is tied up in excess. Seasonal forecasts, bills of material and a demand management
-      report every morning are built in. No spreadsheets.</p>
+      report every morning are built in, and Wyze Owl answers your questions. No spreadsheets.</p>
   </div>
 
   <div class="shots">
@@ -98,16 +103,24 @@
   <div class="ai">
     <div class="txt">
       <span class="tag">OPTIONAL</span>
-      <h3>AI Insights: ask why, and get a plain-English answer</h3>
-      <p>WyzeStock calculates every figure itself. AI explains them in plain English, and every number in the answer is checked
-        against your data.</p>
+      <h3>AI Insights: ask why</h3>
+      <p>WyzeStock calculates every figure itself. AI explains them in plain English, and every number is checked against your data.</p>
       <ul>
         <li><b>Explain these figures:</b> why an item is short, in excess or slow moving.</li>
-        <li><b>What needs attention today:</b> ranked, each with a suggested next step.</li>
-        <li><b>Monthly commentary</b> for the demand meeting. Switched on per company.</li>
+        <li><b>What needs attention today:</b> ranked, each with a next step.</li>
+        <li><b>Monthly commentary</b> for the demand meeting.</li>
       </ul>
     </div>
-    <div class="pic" style="background-image:url(../images/ai-attention.png)"></div>
+    <div class="txt">
+      <span class="tag">OPTIONAL</span>
+      <h3><svg class="owl" viewBox="0 0 100 100" aria-hidden="true"><path d="M18 30 L22 8 L38 20 Q50 16 62 20 L78 8 L82 30 Q96 62 78 86 Q50 100 22 86 Q4 62 18 30 Z" fill="none" stroke="#1B2A33" stroke-width="8" stroke-linejoin="round"/><circle cx="36" cy="45" r="13" fill="none" stroke="#1B2A33" stroke-width="8"/><circle cx="64" cy="45" r="13" fill="none" stroke="#1B2A33" stroke-width="8"/><circle cx="36" cy="46" r="5.5" fill="#1B2A33"/><circle cx="64" cy="46" r="5.5" fill="#1B2A33"/><path d="M45 58 L55 58 L50 70 Z" fill="#FFB23E"/></svg>Wyze Owl: ask in your own words</h3>
+      <p>A chat inside WyzeStock. Type a question and get a short answer worked out from your own figures.</p>
+      <ul>
+        <li><b>Ask anything about stock:</b> what to order, what is short, which orders are late.</li>
+        <li><b>Checked:</b> figures are checked before you see the answer.</li>
+        <li><b>Your choice:</b> three monthly tiers, Light, Medium or Heavy.</li>
+      </ul>
+    </div>
   </div>
 
   <h2>What you get</h2>
