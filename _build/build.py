@@ -563,7 +563,7 @@ def home():
         ('🚚', 'Distribution', 'Transfers between locations that cover shortages from stock you already own, before anything new is bought.'),
         ('📈', 'Seasonal forecasting', 'Holt-Winters forecasts for every item at every location, with sensible handling of new, occasional and dormant items, and manual overrides where you know better.'),
         ('🧾', 'Demand management', 'Sales against forecast, stock cover and production month to date, emailed as an Excel report every morning, plus the Case Sales Predictor.'),
-        ('🧩', 'Bills of material', 'Component demand worked out from finished-good sales through your recipes, and a clear view of what each product is made from and used in.'),
+        ('🧩', 'Bills of material', 'Component demand worked out from finished-good sales through your recipes, with raw materials and packaging planned like everything else.'),
         ('✨', 'AI Insights', 'Plain-English explanations of an item\'s figures, what needs attention today and a monthly commentary, with every number checked against your data.'),
         ('🦉', 'Wyze Owl', 'A chat inside WyzeStock. Ask what to order, what is short or which orders are late, and get a short answer worked out from your own figures. An optional add-on.'),
     ], 'What WyzeStock does', 'Everything you need to plan stock, in one place', 'One platform that turns the stock, sales and orders already in your ERP into targets, exceptions and suggestions, recalculated every day.')
@@ -571,7 +571,7 @@ def home():
     out += showcase('stock-position', 'Stock position', 'See what you hold against what you should hold',
                     'Every item at every location, with its model stock beside what is actually on the shelf. The gap, in units and in rand, is the money WyzeStock can free up, or the sales it can protect.',
                     ['On hand, allocated, available and on purchase order', 'Model stock, reorder point and safety stock for each location',
-                     'Days of cover and the date it will run out', 'Click any item for its full detail, forecast and bill of material'],
+                     'Days of cover and the date it will run out', 'Click any item for its full detail and forecast'],
                     [('stock-position.webp', 'WyzeStock Stock Position: every wine at every depot with on hand, available, model stock, days cover, excess and shortfall'),
                      ('item-detail.webp', 'WyzeStock item detail window: general details, stock, policy, the twelve-month forecast and the same item at other locations')],
                     link=('/stock-optimisation/', 'More about stock optimisation'))
@@ -600,11 +600,8 @@ def home():
                     [('dm-overview.webp', 'WyzeStock Demand Management overview: sales against forecast by range with the month-to-date target'),
                      ('case-predictor.webp', 'WyzeStock Case Sales Predictor: sales and orders, forecast, run rate per day and projected surplus or shortfall per item')],
                     link=('/demand-management/', 'More about demand management'))
-    out += showcase('bom', 'Bills of material', 'From finished goods to every component behind them',
-                    'WyzeStock reads your recipes from the ERP, works out component demand from finished-good sales, and shows what each product is made from and where each component is used.',
-                    ['Component forecasts from finished-good demand, at the production location', 'Made from: every component, every level, with the stock behind it',
-                     'Used in: which finished goods a short component will stop', 'Raw materials, packaging and consumables planned like everything else'],
-                    [('bom.webp', 'WyzeStock Bill of material window: a wine made from bulk wine, glass, closure, label and carton, with stock and days of cover for each')])
+    # The Bills of material showcase (with the BOM window screenshot) was removed 2026-11-03: the BOM must not be visible
+    # (WyzeStock decision log 4cm). Component demand from the BOM is still covered by the features card and the hub.
     out += showcase('ai-insights', 'AI Insights', 'Ask why, and get an answer in plain English',
                     'Buttons in WyzeStock explain an item\'s figures, say why it is excess or slow moving, list what needs attention today and write the monthly demand commentary. Every number in the answer is checked against your data before you see it.',
                     ['Explain these figures, for any item at any location', 'What needs attention today, ranked, with a suggested next step',
@@ -835,8 +832,7 @@ def replenishment_page():
          ('Chase late orders', 'Overdue purchase order lines are shown in red, with their value.'),
          ('Spot surplus orders', 'Orders that would take stock well above the model are flagged before the goods arrive.'),
          ('Components too', 'Raw materials and packaging are suggested from finished-good demand through your bills of material.')],
-        [('purchase-orders.webp', 'WyzeStock Purchase Orders with overdue lines'),
-         ('bom.webp', 'WyzeStock Bill of material window')],
+        [('purchase-orders.webp', 'WyzeStock Purchase Orders with overdue lines')],
         ('Replenishment works from the same targets', f'Suggestions come from the {a("/stock-optimisation/", "model stock")}, and stock can often be {a("/distribution/", "moved between locations")} instead of bought. {a("/#hub", "See how it fits together")}.'),
         [('What does the suggested quantity mean?', 'It is the quantity that brings the item back up to its model stock, after counting stock on hand, allocations and open purchase orders, rounded to the minimum order and order multiple.'),
          ('Does WyzeStock place the orders?', 'No. WyzeStock suggests; you place the order in your ERP as usual. The next load picks it up as an open purchase order.'),
@@ -862,7 +858,7 @@ def distribution_page():
          ('Your rules', 'Choose which locations each depot may draw from, and in which order, in Settings.'),
          ('See what cannot be covered', 'Lines with no source are listed with their value.'),
          ('Value every move', 'Each transfer shows the quantity and its value at cost.'),
-         ('Drill into any item', 'Press a line to see the item at every location, with its forecast and bill of material.'),
+         ('Drill into any item', 'Press a line to see the item at every location, with its forecast.'),
          ('Export the pick list', 'Send the transfers to the warehouse as Excel or PDF.')],
         [('stock-position.webp', 'WyzeStock Stock Position by location')],
         ('Distribution balances the same targets', f'Transfers use the {a("/stock-optimisation/", "model stock")} at every location, and what cannot be covered becomes a {a("/replenishment/", "purchase suggestion")}. {a("/#hub", "See how it fits together")}.'),
