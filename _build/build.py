@@ -29,6 +29,7 @@ PAGES = [
     ('/replenishment/', 'Replenishment'),
     ('/distribution/', 'Distribution'),
     ('/demand-management/', 'Demand management'),
+    ('/early-warnings/', 'Early warnings'),
     ('/ai-insights/', 'AI Insights'),
     ('/wyze-owl/', 'Wyze Owl'),
 ]
@@ -102,7 +103,7 @@ def head(title, desc, path, schema=None):
 def nav(home=False):
     p = '' if home else '/'
     links = [('/stock-optimisation/', 'Optimisation'), ('/replenishment/', 'Replenishment'),
-             ('/distribution/', 'Distribution'), ('/demand-management/', 'Demand'), ('/ai-insights/', 'AI Insights'),
+             ('/distribution/', 'Distribution'), ('/demand-management/', 'Demand'), ('/early-warnings/', 'Warnings'), ('/ai-insights/', 'AI Insights'),
              ('/wyze-owl/', 'Wyze Owl'), ('/partners/', 'Partners')]
     brand_href = '#top' if home else '/'
     items = '\n'.join(f'      <a href="{h}">{t}</a>' for h, t in links)
@@ -418,6 +419,7 @@ def home():
         'featureList': ['Model stock, reorder point and safety stock per item and location', 'Excess, slow-moving and stock-out exceptions',
                         'Seasonal forecasting with manual overrides', 'Purchase suggestions rounded to minimum order and pack size',
                         'Transfers between locations', 'Demand management report emailed every morning', 'Bills of material and component planning',
+                        'Early warnings of run-outs, late orders and changes in demand, weeks ahead', 'Unusual sales found and excluded from the forecast',
                         'AI explanations checked against your figures', 'Automatic ERP sync twice a day', 'PDF and Excel export'],
         'url': SITE, 'publisher': {'@type': 'Organization', 'name': 'WyzeStock', 'url': SITE},
     }
@@ -441,8 +443,8 @@ def home():
       <h1>Hold <span class="accent">less stock</span>.<br>Run out less often.</h1>
       <p class="hero-sub">
         WyzeStock connects to your ERP and works out, for every item at every location, how much stock you should
-        hold, what to order, what to move and what is tied up in excess. Seasonal forecasts, bills of material and a
-        demand management report every morning are built in, and Wyze Owl answers your questions. No spreadsheets.
+        hold, what to order, what to move and what is tied up in excess. Seasonal forecasts, bills of material, early
+        warnings and a demand management report every morning are built in, and Wyze Owl answers your questions. No spreadsheets.
       </p>
       <div class="hero-ctas">
         <a href="#contact" class="btn btn-primary">Get in touch</a>
@@ -545,7 +547,7 @@ def home():
         </div>
         <div class="hub-point">
           <h3>Action lists, not reports</h3>
-          <p>Stock-outs, items about to run out, excess, slow movers, overdue purchase orders and suggested orders and transfers, each in its own list, ready to act on.</p>
+          <p>Stock-outs, items about to run out, excess, slow movers, overdue purchase orders and suggested orders and transfers, each in its own list, ready to act on, plus early warnings of what is coming.</p>
         </div>
         <div class="hub-point">
           <h3>Current every day</h3>
@@ -558,7 +560,8 @@ def home():
     out += features([
         ('📦', 'Stock position', 'On hand, allocated, available and on order for every item at every location, against its model stock, with days of cover and the run-out date.'),
         ('⚖️', 'Model stock and safety stock', 'Targets from the forecast, the lead time and a service level set by ABC-XYZ class, so stock goes where it earns its keep.'),
-        ('🚨', 'Exceptions', 'Stock-outs, potential stock-outs, excess, slow-moving stock and surplus orders, each listed with its value so you start with what matters most.'),
+        ('🚨', 'Exceptions', 'Stock-outs, potential stock-outs, excess, slow-moving stock, surplus orders and unusual sales, each listed with its value so you start with what matters most.'),
+        ('🔔', 'Early warnings', 'Items that will run out, orders that will arrive too late, sales rising or falling and slower suppliers, flagged weeks ahead with the date to act by.'),
         ('🛒', 'Replenishment', 'Suggested orders per supplier, rounded to the minimum order and pack size, with the economic order quantity alongside.'),
         ('🚚', 'Distribution', 'Transfers between locations that cover shortages from stock you already own, before anything new is bought.'),
         ('📈', 'Seasonal forecasting', 'Holt-Winters forecasts for every item at every location, with sensible handling of new, occasional and dormant items, and manual overrides where you know better.'),
@@ -580,27 +583,37 @@ def home():
     out += showcase('exceptions', 'Exceptions', 'Start with the items that need you today',
                     'WyzeStock sorts the exceptions out of thousands of item and location combinations and puts a value on each, so the first thing you look at is the thing that costs the most.',
                     ['Stock-outs and items that will run out before stock can arrive', 'Excess above model stock, valued at cost',
-                     'Slow-moving stock by 30, 60, 90 and 120 days without a sale', 'Purchase orders that are more than you need'],
+                     'Slow-moving stock by 30, 60, 90 and 120 days without a sale', 'Purchase orders that are more than you need',
+                     'Unusual sales: months far above an item\'s normal month, with the stock they add. An Admin can exclude one from the forecast.'],
                     [('exceptions.webp', 'WyzeStock Exceptions: stock-outs, potential stock-outs, excess and slow-moving items with their values')], reverse=True)
+    out += showcase('early-warnings', 'Early warnings', 'Hear about a problem weeks before it reaches the shelf',
+                    'Every night WyzeStock runs each item at each location forward, day by day for six months, from the stock you have, the orders on the way and the forecast. Anything heading for trouble is flagged with the date you must act by and what to do.',
+                    ['Will run out, with the date to order by', 'An order on the way that will arrive after the shelf is empty',
+                     'Sales rising or falling against the forecast, and a sudden spike that puts stock at risk',
+                     'Suppliers getting slower, steady sellers that stopped, and days out of stock',
+                     'The most urgent join What needs attention today, each line labelled with the item and location'],
+                    [('early-warnings.webp', 'WyzeStock Early warnings: each warning with its label, the date to act by, the figures and the next step'),
+                     ('ew-overview.webp', 'WyzeStock Overview: the Early warnings button beside What needs attention, amber when a warning must be acted on within 7 days')],
+                    link=('/early-warnings/', 'More about early warnings'))
     out += showcase('replenishment', 'Replenishment', 'Know what to order, from whom, and how much',
                     'Suggested orders for every supplier, worked out from the model stock, what is already on order and the lead time, and rounded the way you actually buy.',
                     ['Rounded to the minimum order quantity and the pack or pallet multiple', 'Economic order quantity alongside, for the items where it matters',
                      'Open purchase orders, with the overdue ones highlighted', 'Filter by supplier, location, group or category and export to Excel'],
                     [('replenishment.webp', 'WyzeStock Replenishment: suggested orders by supplier with model stock, on order, lead time and rounded order quantity'),
-                     ('purchase-orders.webp', 'WyzeStock Purchase Orders: open orders with due dates, outstanding quantities and overdue lines in red')],
+                     ('purchase-orders.webp', 'WyzeStock Purchase Orders: open orders with due dates, outstanding quantities and overdue lines in red')], reverse=True,
                     link=('/replenishment/', 'More about replenishment'))
     out += showcase('distribution', 'Distribution', 'Move stock before you buy more of it',
                     'One depot is short while another holds too much. WyzeStock suggests the transfers that cover the shortage from stock you already own, from the locations you choose, in the order you choose.',
                     ['Transfers from your production or central warehouse first, then from other depots', 'Lines that cannot be covered, so you know what to make or buy',
                      'The value of every transfer and every uncovered line', 'Press any line to see the item at every location'],
-                    [('distribution.webp', 'WyzeStock Distribution: suggested transfers from the winery to the Cape Town, Johannesburg and Durban depots')], reverse=True,
+                    [('distribution.webp', 'WyzeStock Distribution: suggested transfers from the winery to the Cape Town, Johannesburg and Durban depots')],
                     link=('/distribution/', 'More about distribution'))
     out += showcase('demand-management', 'Demand management', 'The state of the month, in your inbox every morning',
                     'Sales month to date against forecast, the run rate for the rest of the month, stock cover and production against plan, by range and by item. Emailed as an Excel report after the morning update.',
                     ['Overview by range, with the target for the day of the month', 'Detail laid out like the report your team already uses',
                      'Case Sales Predictor: where each item will land at the current run rate', 'Production plan and manual forecast captured in the app'],
                     [('dm-overview.webp', 'WyzeStock Demand Management overview: sales against forecast by range with the month-to-date target'),
-                     ('case-predictor.webp', 'WyzeStock Case Sales Predictor: sales and orders, forecast, run rate per day and projected surplus or shortfall per item')],
+                     ('case-predictor.webp', 'WyzeStock Case Sales Predictor: sales and orders, forecast, run rate per day and projected surplus or shortfall per item')], reverse=True,
                     link=('/demand-management/', 'More about demand management'))
     # The Bills of material showcase (with the BOM window screenshot) was removed 2026-11-03: the BOM must not be visible
     # (WyzeStock decision log 4cm). Component demand from the BOM is still covered by the features card and the hub.
@@ -609,19 +622,20 @@ def home():
                     ['Explain these figures, for any item at any location', 'What needs attention today, ranked, with a suggested next step',
                      'Monthly commentary for the demand management meeting', 'A review of the forecasts that look out of line'],
                     [('ai-attention.webp', 'WyzeStock What needs attention today: stock-outs, items about to run out and overdue orders, each with what to do'),
-                     ('ai-explain.webp', 'WyzeStock Explain these figures: a plain-English explanation of an item\'s stock, forecast and model stock')], reverse=True,
+                     ('ai-explain.webp', 'WyzeStock Explain these figures: a plain-English explanation of an item\'s stock, forecast and model stock')],
                     link=('/ai-insights/', 'More about AI Insights'))
     out += f'''
   <!-- WYZE OWL -->
   <section class="showcase-section" id="wyze-owl">
     <div class="wrap">
-      <div class="showcase-row top-align">
+      <div class="showcase-row reverse top-align">
         <div class="showcase-text">
           <div class="section-label">Wyze Owl</div>
           <h2>Ask your stock a question, in your own words</h2>
           <p>Wyze Owl is a chat inside WyzeStock. Type a question the way you would ask a colleague and get a short answer worked out from your own figures. An optional add-on, with three monthly tiers.</p>
           <ul class="showcase-list">
             <li>What to order, what is short, what is in excess and what is on its way: ask about any of them</li>
+            <li>With Early warnings on, ask what is at risk or when you must order an item</li>
             <li>Items, locations, suppliers, purchase orders, forecasts and sales</li>
             <li>Figures are checked against your data before the answer is shown</li>
             <li>Suggested questions to get you started, and follow-up questions in the same conversation</li>
@@ -801,18 +815,20 @@ def stock_page():
         [('See excess in rand', 'Excess above model stock, valued at cost, for every item, location, group and category.'),
          ('Catch stock-outs early', 'Potential stock-outs are items that will run out before a new order could arrive, flagged while there is still time.'),
          ('Find slow movers', 'Items with no sale for 30, 60, 90 or 120 days, with the value tied up in each band.'),
+         ('Spot unusual sales', 'Months far above an item\'s normal month, with the forecast and model stock with and without them. An Admin can exclude a one-off month from the forecast.'),
          ('Protect what matters', 'A items with steady demand get a high service level; erratic C items do not, so safety stock goes where it pays.'),
          ('Trust the inputs', 'Lead times, minimum orders and pack sizes come from your ERP and can be set per item and location in Settings.'),
          ('Choose your method', 'Use the service-level method, or the simpler lead-time method many teams already know.')],
         [('exceptions.webp', 'WyzeStock Exceptions list with stock-outs, excess and slow-moving stock'),
          ('item-detail.webp', 'WyzeStock item detail with stock, policy and forecast'),
          ('stock-chart-3d.webp', 'WyzeStock Stock Position chart in 3D: stock value by category and location')],
-        ('Stock optimisation drives everything else', f'The same model stock feeds {a("/replenishment/", "replenishment")}, {a("/distribution/", "distribution")} and the {a("/demand-management/", "demand management report")}. {a("/#hub", "See how it fits together")}.'),
+        ('Stock optimisation drives everything else', f'The same model stock feeds {a("/replenishment/", "replenishment")}, {a("/distribution/", "distribution")}, the {a("/demand-management/", "demand management report")} and the {a("/early-warnings/", "early warnings")}. {a("/#hub", "See how it fits together")}.'),
         [('What is model stock?', 'Model stock is the quantity WyzeStock suggests you hold for an item at a location: enough to cover demand over the lead time and the review period, plus safety stock for the service level you want. Anything well above it is excess.'),
          ('How is safety stock worked out?', 'From the service level for the item\'s ABC-XYZ class and how far actual sales have strayed from the forecast. Steady, valuable items get more protection; erratic, low-value items less.'),
          ('Where do lead times come from?', 'From your ERP where they are kept, from each location\'s default, or from the item and location settings in WyzeStock, in that order of preference.'),
          ('Does it work with more than one warehouse?', 'Yes. Every item is calculated at every location, and each location has a role: production, sales depot or stock only.'),
          ('Can I see it as a chart?', 'Yes. Stock Position switches between the table and a chart of stock value, quantity, days of cover or excess value by location and category, as a heatmap or a 3D view. Click a category to see its items, and an item to see it alone.'),
+         ('What is an unusual sale?', 'A month in the last year where an item sold more than three times its normal month at a location (you can change the multiple in Settings). WyzeStock shows what it adds to the forecast and model stock, and an Admin can exclude it so a one-off order does not raise the targets. The sales themselves are never changed.'),
          ('How often is it recalculated?', 'After every load from your ERP, twice a day, and whenever you press Recalculate.')],
         'Stock Optimisation: Model Stock, Excess & Stock-outs | WyzeStock',
         'Model stock, safety stock and reorder points for every item at every location. See excess and shortfall in rand and catch stock-outs early.',
@@ -903,6 +919,39 @@ def dm_page():
         'Daily demand management report by email, sales against forecast and run rate by range and item, seasonal Holt-Winters forecasts and the Case Sales Predictor.')
 
 
+def ew_page():
+    return landing(
+        '/early-warnings/', 'Early warnings', 'Early warnings for stock',
+        'Hear about a problem <span class="accent">weeks before</span> it happens',
+        'Every night WyzeStock runs each item at each location forward, day by day for six months, from the stock you have, the orders on the way, production still planned and the forecast. Anything heading for trouble is flagged with the date you must act by and what to do, long before anyone would think to look.',
+        ('early-warnings.webp', 'WyzeStock Early warnings: each warning with its label, the date to act by, the figures and the next step'),
+        'From tonight\'s figures to tomorrow\'s warning', 'WyzeStock does the looking, so nobody has to remember to.',
+        [('Run forward', 'Each item at each location is projected day by day for 26 weeks: stock on hand, orders by their due date, production still planned, and the forecast taken off each day.'),
+         ('Compared with the lead time', 'Each item\'s lead time, as the stock calculation already uses it, plus your warning time, decides whether there is still time to act and by when.'),
+         ('Flagged with a next step', 'Each warning says what it is, which item and location, the figures behind it, the date to act by and what to do. The most urgent join What needs attention today.')],
+        'What it warns you about', 'Eight kinds of trouble, caught early',
+        [('Will run out', 'Runs out within the lead time plus your warning time, with the run-out date and the date to order by.'),
+         ('Order arrives too late', 'Stock is on order, but it is due after the shelf will be empty.'),
+         ('Sales rising', 'Selling above the forecast week after week, so the targets may be too low.'),
+         ('Unusual sales: stock at risk', 'A spike in the last 30 days that will empty the shelf before a new order could arrive.'),
+         ('Sales falling, stock on order', 'Demand is dropping while more stock is still coming.'),
+         ('Supplier slower', 'Several open orders well past the supplier\'s lead time.'),
+         ('Stopped selling', 'A steady seller with no sale for several weeks.'),
+         ('Days out of stock', 'Out of stock on several days lately, so some demand may be hidden. The forecast allows for those days.')],
+        [('ew-overview.webp', 'WyzeStock Overview: the Early warnings button beside What needs attention, amber when a warning must be acted on within 7 days'),
+         ('ew-item.webp', 'WyzeStock item detail opened from an early warning: stock, policy, run-out date and the twelve-month forecast'),
+         ('owl-risk.webp', 'Wyze Owl answering What is at risk? with the early warnings to act on first')],
+        ('Built on the same figures', f'Early warnings use the same {a("/stock-optimisation/", "lead times and model stock")}, the same {a("/demand-management/", "forecasts")} and the same open orders as the rest of WyzeStock, and {a("/wyze-owl/", "Wyze Owl")} can answer questions about them. {a("/#hub", "See how it fits together")}.'),
+        [('How is this different from the Exceptions lists?', 'Exceptions show where you are today: out of stock, about to run out, in excess. Early warnings look ahead weeks and months, so you can act while it is still cheap to.'),
+         ('Do we need to set anything up?', 'Two settings: the warning time in weeks (4 to start with) and the sensitivity, Low, Normal or High. Everything else comes from the figures WyzeStock already has.'),
+         ('Does it use AI?', 'No. WyzeStock works out every warning from your own figures. If your company has AI Insights on, the AI only writes the wording in What needs attention.'),
+         ('Will we be flooded with warnings?', 'Warnings are sorted by the date you must act by, and only the most urgent join What needs attention today. Low sensitivity raises the bar for sales rising, falling and stopped.'),
+         ('Does it appear in the morning email?', 'Yes. The most urgent warnings are in the What needs attention list at the top of the morning email, each line labelled with the item and location.'),
+         ('How do we switch it on?', 'It is switched on per company. Get in touch and we will turn it on for you.')],
+        'Early Warnings: Run-outs, Late Orders & Demand Changes | WyzeStock',
+        'WyzeStock looks ahead six months for every item at every location and warns you of run-outs, late orders, rising or falling sales and slower suppliers, with the date to act by.')
+
+
 def ai_page():
     return landing(
         '/ai-insights/', 'AI Insights', 'AI that explains your stock',
@@ -916,7 +965,7 @@ def ai_page():
         'What you can do with it', 'Spend less time working out what the numbers mean',
         [('Explain these figures', 'For any item at any location: what the stock, forecast and model stock say and what to do about it.'),
          ('Why is this excess or slow moving?', 'The likely cause from the history, and a recommended action.'),
-         ('What needs attention today', 'Stock-outs, items about to run out, overdue orders and surplus orders, ranked, at the top of the morning email too.'),
+         ('What needs attention today', 'Stock-outs, items about to run out, overdue orders, surplus orders and early warnings, ranked, each line labelled with the item and location, at the top of the morning email too.'),
          ('Review the forecast', 'Forecasts that look out of line with recent sales, for a second look.'),
          ('Monthly commentary', 'A short write-up of the month for the demand meeting.'),
          ('Under your control', 'Switched on per company, with a daily limit on use.')],
@@ -946,7 +995,8 @@ def owl_page():
          ('Where is the money tied up?', 'Excess, slow-moving stock and surplus on order, valued at cost.'),
          ('What is late?', 'Open and overdue purchase orders, and open sales orders.'),
          ('Can we move stock instead?', 'Suggested transfers that cover a shortage from stock you already own.'),
-         ('Tell me about an item or supplier', 'Stock at each location, sales, forecast, open orders and lead times.')],
+         ('Tell me about an item or supplier', 'Stock at each location, sales, forecast, open orders and lead times.'),
+         ('What is at risk?', 'With Early warnings on: what will run out, which orders will arrive too late and when you must order, the soonest first.')],
         [], ('Three tiers: Light, Medium or Heavy', f'Choose a monthly allowance of questions for the whole company. {a("/ai-insights/", "AI Insights")} write-ups come out of the same allowance. Your usage is shown in WyzeStock, and each user can ask up to 30 questions a day. {a("/#contact", "Ask us about pricing")}.'),
         [('What is Wyze Owl?', 'A chat inside WyzeStock. You ask a question about your stock in your own words and it answers from your company\'s WyzeStock figures.'),
          ('What counts as a question?', 'Each message you send to Wyze Owl counts as one question, including follow-ups. Each AI Insights write-up also counts as one. Limit messages, such as the allowance being used up, do not count.'),
@@ -1015,10 +1065,11 @@ if __name__ == '__main__':
     write('/replenishment/', replenishment_page())
     write('/distribution/', distribution_page())
     write('/demand-management/', dm_page())
+    write('/early-warnings/', ew_page())
     write('/ai-insights/', ai_page())
     write('/wyze-owl/', owl_page())
     write('/partners/', partners_page())
     urls = ['/'] + [p for p, _ in PAGES] + ['/partners/']
     (ROOT / 'sitemap.xml').write_text('<?xml version="1.0" encoding="UTF-8"?>\n<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">\n'
-                                      + ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>2026-11-02</lastmod></url>\n' for u in urls) + '</urlset>\n')
+                                      + ''.join(f'  <url><loc>{SITE}{u}</loc><lastmod>2026-11-26</lastmod></url>\n' for u in urls) + '</urlset>\n')
     (ROOT / 'robots.txt').write_text(f'User-agent: *\nAllow: /\nDisallow: /_build/\n\nSitemap: {SITE}/sitemap.xml\n')
